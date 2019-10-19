@@ -5,9 +5,13 @@ import rosa.isa.planetsapi.model.PlanetDTO;
 import java.util.List;
 
 public interface PlanetService {
-    PlanetDTO register(PlanetDTO planet) throws Exception;
-    PlanetDTO update(String planetName, PlanetDTO planet) throws Exception;
+    PlanetDTO register(PlanetDTO planet);
+
+    PlanetDTO update(String planetName, PlanetDTO planet);
+
     List<PlanetDTO> findAll(int page, int size);
-    PlanetDTO findByName(String name) throws Exception;
+
+    PlanetDTO findByName(String name);
+
     void remove(String planet);
 }
