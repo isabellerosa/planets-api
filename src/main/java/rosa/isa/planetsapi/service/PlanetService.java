@@ -13,5 +13,5 @@ public interface PlanetService {
 
     PlanetDTO findByName(String name);
 
-    void remove(String planet);
+    PlanetDTO remove(String planet);
 }

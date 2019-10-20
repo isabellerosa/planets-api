@@ -113,7 +113,7 @@ public class PlanetServiceImpl implements PlanetService {
 
 
     @Override
-    public void remove(String planet) throws CustomError {
+    public PlanetDTO remove(String planet) throws CustomError {
 
         try {
             Planet planetFound = planetRepository.findByName(planet);
@@ -124,6 +124,7 @@ public class PlanetServiceImpl implements PlanetService {
 
             planetRepository.delete(planetFound);
 
+            return new ModelMapper().map(planetFound, PlanetDTO.class);
         }catch (CustomError customError){
             LOGGER.error(String.format("Caught CustomError with message: %s", customError.getMessage()));
             throw customError;

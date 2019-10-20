@@ -62,12 +62,12 @@ public class PlanetController {
     }
 
     @DeleteMapping("/{planet}")
-    public void deletePlanet(@PathVariable("planet") String planet)
+    public PlanetDTO deletePlanet(@PathVariable("planet") String planet)
             throws ResponseStatusException{
 
         LOGGER.debug(String.format("Deleting planet: %s", planet));
 
-        planetService.remove(planet.replace("_", " "));
+        return planetService.remove(planet.replace("_", " "));
     }
 
 
