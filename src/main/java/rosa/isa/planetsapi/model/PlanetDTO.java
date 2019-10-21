@@ -1,8 +1,10 @@
 package rosa.isa.planetsapi.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class PlanetDTO {
     @JsonProperty(value = "planet", required = true)
@@ -10,14 +12,14 @@ public class PlanetDTO {
 
     private String type;
 
-    private double radius;
+    private Double radius;
 
     @JsonProperty("moons")
-    private int qtdMoons;
+    private Integer qtdMoons;
 
     @JsonProperty("rotation_period")
-    private double rotationPeriod;
+    private Double rotationPeriod;
 
-    @JsonProperty("orbital_period")
-    private double orbitalPeriod;
+    @JsonProperty(value = "orbital_period")
+    private Double orbitalPeriod;
 }

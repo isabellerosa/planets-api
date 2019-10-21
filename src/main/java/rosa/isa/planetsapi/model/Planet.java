@@ -11,16 +11,17 @@ public class Planet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 60)
     private String name;
 
+    @Column(length = 60)
     private String type;
 
-    private double radius;
+    private Double radius;
 
-    private int qtdMoons;
+    private Integer qtdMoons;
 
-    private double rotationPeriod;
+    private Double rotationPeriod;
 
-    private double orbitalPeriod;
+    private Double orbitalPeriod;
 }
