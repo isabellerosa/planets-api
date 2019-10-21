@@ -1,6 +1,5 @@
 package rosa.isa.planetsapi;
 
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -15,8 +14,8 @@ class PlanetsApiRestAssuredTest {
 
     @BeforeEach
     void setUp() {
-        RestAssured.basePath = "/api";
-        RestAssured.port = 8080;
+        basePath = "/api";
+        port = 8080;
     }
 
     @Test
