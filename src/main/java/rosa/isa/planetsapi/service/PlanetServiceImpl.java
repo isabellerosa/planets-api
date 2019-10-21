@@ -80,7 +80,7 @@ public class PlanetServiceImpl implements PlanetService {
     public List<PlanetDTO> findAll(int page, int size) throws CustomError {
         Pageable pageable = PageRequest.of(
                 Math.max(0, page),
-                Math.max(5, size));
+                Math.max(1, size));
 
         try {
             Page<Planet> planets = planetRepository.findAll(pageable);
