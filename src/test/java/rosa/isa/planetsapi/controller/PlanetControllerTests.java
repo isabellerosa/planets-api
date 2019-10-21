@@ -1,11 +1,9 @@
 package rosa.isa.planetsapi.controller;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.server.ResponseStatusException;
 import rosa.isa.planetsapi.PlanetFixture;
@@ -15,6 +13,8 @@ import rosa.isa.planetsapi.service.PlanetService;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -46,8 +46,8 @@ class PlanetControllerTests {
 
         PlanetDTO returned = planetController.addPlanet(payload);
 
-        Assertions.assertEquals(payload, returned);
-        Mockito.verify(planetService, times(1)).register(any());
+        assertEquals(payload, returned);
+        verify(planetService, times(1)).register(any());
     }
 
     @Test
@@ -59,7 +59,7 @@ class PlanetControllerTests {
 
         when(planetService.register(any(PlanetDTO.class))).thenThrow(CustomError.class);
 
-        Assertions.assertThrows(ResponseStatusException.class, () -> planetController.addPlanet(payload));
+        assertThrows(ResponseStatusException.class, () -> planetController.addPlanet(payload));
     }
 
     @Test
@@ -70,15 +70,15 @@ class PlanetControllerTests {
 
         List<PlanetDTO> returnedPlanets = planetController.getPlanets(0, 5);
 
-        Assertions.assertEquals(returnedPlanets.size(), 3);
-        Mockito.verify(planetService, times(1)).findAll(anyInt(), anyInt());
+        assertEquals(returnedPlanets.size(), 3);
+        verify(planetService, times(1)).findAll(anyInt(), anyInt());
     }
 
     @Test
     void getPlanets_InternalError_ResponseStatusException(){
         when(planetService.findAll(anyInt(), anyInt())).thenThrow(CustomError.class);
 
-        Assertions.assertThrows(ResponseStatusException.class, () -> planetController.getPlanets(0, 10));
+        assertThrows(ResponseStatusException.class, () -> planetController.getPlanets(0, 10));
     }
 
     @Test
@@ -90,7 +90,7 @@ class PlanetControllerTests {
         String planetName = "Earth";
         PlanetDTO returnPlanet = planetController.getPlanet(planetName);
 
-        Assertions.assertEquals(returnPlanet.getName(), planetName);
+        assertEquals(returnPlanet.getName(), planetName);
         verify(planetService, times(1)).findByName(anyString());
     }
 
@@ -100,7 +100,7 @@ class PlanetControllerTests {
 
         String planetName = "Earth";
 
-        Assertions.assertThrows(ResponseStatusException.class, ()->planetController.getPlanet(planetName));
+        assertThrows(ResponseStatusException.class, ()->planetController.getPlanet(planetName));
     }
 
     @Test
@@ -119,8 +119,8 @@ class PlanetControllerTests {
 
         PlanetDTO returned = planetController.updatePlanet(planetName, payload);
 
-        Assertions.assertEquals(payload, returned);
-        Mockito.verify(planetService, times(1)).update(anyString(), any(PlanetDTO.class));
+        assertEquals(payload, returned);
+        verify(planetService, times(1)).update(anyString(), any(PlanetDTO.class));
     }
 
     @Test
@@ -135,7 +135,7 @@ class PlanetControllerTests {
 
         when(planetService.update(anyString(), any(PlanetDTO.class))).thenThrow(CustomError.class);
 
-        Assertions.assertThrows(ResponseStatusException.class, () -> planetController.updatePlanet(namePlanet, payload));
+        assertThrows(ResponseStatusException.class, () -> planetController.updatePlanet(namePlanet, payload));
     }
 
     @Test
@@ -147,8 +147,8 @@ class PlanetControllerTests {
 
         PlanetDTO returned = planetController.deletePlanet(planetName);
 
-        Assertions.assertEquals(planetName, returned.getName());
-        Mockito.verify(planetService, times(1)).remove(anyString());
+        assertEquals(planetName, returned.getName());
+        verify(planetService, times(1)).remove(anyString());
 
     }
 
@@ -158,6 +158,6 @@ class PlanetControllerTests {
 
         when(planetService.remove(anyString())).thenThrow(CustomError.class);
 
-        Assertions.assertThrows(ResponseStatusException.class, () -> planetController.deletePlanet(planetName));
+        assertThrows(ResponseStatusException.class, () -> planetController.deletePlanet(planetName));
     }
 }
