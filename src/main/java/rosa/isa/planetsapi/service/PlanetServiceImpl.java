@@ -5,6 +5,7 @@ import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +41,9 @@ public class PlanetServiceImpl implements PlanetService {
             planet = planetRepository.save(planet);
 
             return mapper.map(planet, PlanetDTO.class);
+        }catch (DataIntegrityViolationException dataIntegrityViolationException){
+            LOGGER.error(dataIntegrityViolationException.getMessage());
+            throw new CustomError(ErrorMessage.PLANET_DATA_VIOLATION, dataIntegrityViolationException);
         }catch (CustomError customError){
             LOGGER.error(String.format("Caught CustomError with message: %s", customError.getMessage()));
             throw customError;
@@ -66,6 +70,9 @@ public class PlanetServiceImpl implements PlanetService {
 
             return mapper.map(updated, PlanetDTO.class);
 
+        }catch (DataIntegrityViolationException dataIntegrityViolationException){
+            LOGGER.error(dataIntegrityViolationException.getMessage());
+            throw new CustomError(ErrorMessage.PLANET_DATA_VIOLATION, dataIntegrityViolationException);
         }catch (CustomError customError){
             LOGGER.error(String.format("Caught CustomError with message: %s", customError.getMessage()));
             throw customError;
