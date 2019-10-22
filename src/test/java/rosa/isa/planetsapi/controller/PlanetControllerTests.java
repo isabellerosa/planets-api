@@ -15,7 +15,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 class PlanetControllerTests {
@@ -70,7 +69,7 @@ class PlanetControllerTests {
 
         List<PlanetDTO> returnedPlanets = planetController.getPlanets(0, 5);
 
-        assertEquals(returnedPlanets.size(), 3);
+        assertEquals(foundPlanets.size(), returnedPlanets.size());
         verify(planetService, times(1)).findAll(anyInt(), anyInt());
     }
 
@@ -90,7 +89,7 @@ class PlanetControllerTests {
         String planetName = "Earth";
         PlanetDTO returnPlanet = planetController.getPlanet(planetName);
 
-        assertEquals(returnPlanet.getName(), planetName);
+        assertEquals(planetName, returnPlanet.getName());
         verify(planetService, times(1)).findByName(anyString());
     }
 

@@ -19,8 +19,6 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 class PlanetServiceTests {
@@ -111,7 +109,7 @@ class PlanetServiceTests {
         String planetName = "Earth";
         PlanetDTO foundPlanet = planetService.findByName(planetName);
 
-        assertSame(foundPlanet.getClass(), PlanetDTO.class);
+        assertSame(PlanetDTO.class, foundPlanet.getClass());
         assertEquals(planetName, foundPlanet.getName());
 
         verify(planetRepository, times(1)).findByName(anyString());
@@ -138,7 +136,7 @@ class PlanetServiceTests {
         updatedPlanetDto.setName(newName);
         PlanetDTO returned = planetService.update("Earth", updatedPlanetDto);
 
-        assertEquals(returned.getName(), newName);
+        assertEquals(newName, returned.getName());
         verify(planetRepository, times(1)).save(any());
     }
 
@@ -156,7 +154,6 @@ class PlanetServiceTests {
 
     @Test
     void update_CustomErrorException(){
-        String oldName = "Venus";
         String newName = "Ceres";
         Planet foundPlanet = planetFixture.getPlanetWithRequiredFieldsFilled();
         PlanetDTO updatedPlanetDto = planetFixture.getPlanetWithDtoRequiredFieldsFilled();
@@ -165,7 +162,7 @@ class PlanetServiceTests {
         when(planetRepository.findByName(anyString())).thenReturn(foundPlanet);
         when(planetRepository.save(any(Planet.class))).thenReturn(null);
 
-        assertThrows(CustomError.class, () -> planetService.update(oldName, updatedPlanetDto));
+        assertThrows(CustomError.class, () -> planetService.update(foundPlanet.getName(), updatedPlanetDto));
         verify(planetRepository, atMostOnce()).save(any());
     }
 
@@ -176,11 +173,11 @@ class PlanetServiceTests {
         when(planetRepository.findByName(anyString())).thenReturn(planet);
         doNothing().when(planetRepository).delete(any(Planet.class));
 
-        String planetName = "Earth";
+        String planetName = planet.getName();
         PlanetDTO deletedPlanet = planetService.remove(planetName);
 
-        assertSame(deletedPlanet.getClass(), PlanetDTO.class);
-        assertEquals(deletedPlanet.getName(), planetName);
+        assertSame(PlanetDTO.class, deletedPlanet.getClass());
+        assertEquals(planetName, deletedPlanet.getName());
 
         verify(planetRepository, times(1)).delete(any(Planet.class));
     }

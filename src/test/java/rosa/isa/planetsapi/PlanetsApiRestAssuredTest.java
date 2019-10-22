@@ -58,8 +58,8 @@ class PlanetsApiRestAssuredTest {
     void getPlanets_whenPageAndOffsetUndefined_thenOK(){
         Response planets = when().get("/planets");
 
-        Assertions.assertEquals(planets.getStatusCode(), HttpStatus.SC_OK);
-        Assertions.assertEquals(planets.getBody().as(PlanetDTO[].class).length, 1);
+        Assertions.assertEquals(HttpStatus.SC_OK, planets.getStatusCode());
+        Assertions.assertEquals(1, planets.getBody().as(PlanetDTO[].class).length);
     }
 
     @Test
@@ -68,18 +68,18 @@ class PlanetsApiRestAssuredTest {
         Response planets = with().queryParam("page", page).queryParam("offset", offset)
                 .when().get("/planets");
 
-        Assertions.assertEquals(planets.getStatusCode(), HttpStatus.SC_OK);
-        Assertions.assertEquals(planets.getBody().as(PlanetDTO[].class).length, offset);
+        Assertions.assertEquals(HttpStatus.SC_OK, planets.getStatusCode());
+        Assertions.assertEquals(offset, planets.getBody().as(PlanetDTO[].class).length);
     }
 
     @Test
     void getPlanet_whenPlanetFound_thenOK(){
         String planet = "Earth";
         Response response = given().pathParam("planet", planet)
-        .when().get("/planets/{planet}");
+                .when().get("/planets/{planet}");
 
-        Assertions.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
-        Assertions.assertEquals(response.getBody().as(PlanetDTO.class).getName(), planet);
+        Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        Assertions.assertEquals(planet, response.getBody().as(PlanetDTO.class).getName());
     }
 
     @Test
@@ -100,11 +100,11 @@ class PlanetsApiRestAssuredTest {
         payload.setQtdMoons(12);
 
         Response response = given().pathParam("planet", planet)
-                    .contentType(ContentType.JSON).body(payload)
+                .contentType(ContentType.JSON).body(payload)
                 .when().put("/planets/{planet}");
 
-        Assertions.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
-        Assertions.assertEquals(response.getBody().as(PlanetDTO.class).getName(), payload.getName());
+        Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        Assertions.assertEquals(payload.getName(), response.getBody().as(PlanetDTO.class).getName());
     }
 
     @Test
@@ -139,8 +139,8 @@ class PlanetsApiRestAssuredTest {
         Response response = given().pathParam("planet", planet)
                 .when().delete("/planets/{planet}");
 
-        Assertions.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
-        Assertions.assertEquals(response.getBody().as(PlanetDTO.class).getName(), planet);
+        Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        Assertions.assertEquals(planet, response.getBody().as(PlanetDTO.class).getName());
     }
 
     @Test
