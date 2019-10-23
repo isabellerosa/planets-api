@@ -45,7 +45,8 @@ Key `planet` is required
 | Get planet details  | `GET` | `/api/planets/{planet-name}` | no |
 | Update record | `PUT` | `/api/planets/{planet-name}` | yes |
 | Delete a record | `DELETE` | `/api/planets/{planet-name}` | no |
-(*) You may pass query params `page` and `offset` to determine what page you want to see and how many items per page, respectively, as in `/api/planets?page=0&offset=20`
+
+_(*) You may pass query params `page` and `offset` to determine what page you want to see and how many items per page, respectively, as in `/api/planets?page=0&offset=20`_
 
 
 Examples:
@@ -53,10 +54,3 @@ Examples:
 [Get details about 'Earth'](http://192.168.99.100:8080/api/planets/Earth)
 
 [Get the first page of planets, displaying up to 10 planets per page](http://localhost:8080/api/planets?offset=10)
-
- 
-    
-
-
-
-
