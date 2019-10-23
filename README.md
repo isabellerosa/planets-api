@@ -51,6 +51,6 @@ _(*) You may pass query params `page` and `offset` to determine what page you wa
 
 Examples:
 
-[Get details about 'Earth'](http://192.168.99.100:8080/api/planets/Earth)
+[Get details about 'Earth'](http://localhost:8080/api/planets/Earth)
 
 [Get the first page of planets, displaying up to 10 planets per page](http://localhost:8080/api/planets?offset=10)
