@@ -7,18 +7,10 @@ This project uses the following technologies:
 - Spring Boot, Rest, Data, Actuator
 - H2 in memory database
 
-## Run on Docker
-Under the project's folder, run the following command on your terminal:
+## Run
+_Note: make sure you have `Docker` installed_
 
-Create the docker image
-```
-docker build -t isabellerosa/planets-api .
-```
-
-Run in a container
-```
-docker container run -d -p 8080:8080 isabellerosa/planets-api
-```
+Run `make` to check on the available commands.
 
 ## Endpoints
 
