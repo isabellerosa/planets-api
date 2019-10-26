@@ -1,0 +1,24 @@
+version: '3'
+services:
+  planets-api:
+    build: .
+    image: isabellerosa/planets-api
+    ports:
+      - 5000:8080
+    depends_on:
+      - planets-db
+    networks:
+      - planets-network
+    environment:
+      - ACTIVE_PROFILE=prod
+
+  planets-db:
+    image: mysql
+    networks:
+      - planets-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=universe
+
+networks:
+  planets-network:
